@@ -4,6 +4,7 @@ from collision import collide
 pygame.font.init()
 
 WIDTH, HEIGHT = 750, 750
+HEALTH = 100
 
 # Load images
 RED_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_red_small.png"))
@@ -41,7 +42,7 @@ class Laser:
 class Ship:
     COOLDOWN = 30
 
-    def __init__(self, x, y, health=100):
+    def __init__(self, x, y, health=HEALTH):
         self.x = x
         self.y = y
         self.health = health
@@ -79,7 +80,8 @@ class Ship:
         return self.ship_img.get_height()
 
 class Player(Ship): # Class Player inherits all the attributes and methods of class Ship
-    HEALTH = 100
+
+    GREEN_BAR = (255, 0, 0)
     def __init__(self, x, y, health=HEALTH):
         super().__init__(x, y, health)
         self.ship_img = YELLOW_SPACE_SHIP
@@ -125,7 +127,7 @@ class Enemy(Ship):
         "blue": (BLUE_SPACE_SHIP, BLUE_LASER)
     }
 
-    def __init__(self, x, y, color, health=100):
+    def __init__(self, x, y, color, health=HEALTH):
         super().__init__(x, y, health)
         self.ship_img, self.laser_img = self.COLOR_MAP[color]
         self.mask = pygame.mask.from_surface(self.ship_img)
